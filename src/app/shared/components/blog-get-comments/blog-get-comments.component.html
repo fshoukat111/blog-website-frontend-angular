@@ -1,0 +1,16 @@
+
+<div *ngIf="commentsList.length; else noComments">
+  <mat-card class="commets-detail"  *ngFor="let comments of commentsList">
+    <!-- <div mat-card-avatar class="example-header-image"></div> -->
+    <mat-card-title>{{comments.full_name}}</mat-card-title>
+    <mat-card-content>
+      <p>
+        {{comments.comment_content}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
+<ng-template #noComments>
+  <h2 class="zero-comment">No Comment Yet</h2>
+</ng-template>
+

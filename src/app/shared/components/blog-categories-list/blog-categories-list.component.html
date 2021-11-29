@@ -1,0 +1,6 @@
+<nav mat-tab-nav-bar>
+  <a mat-tab-link *ngFor="let category of categoriesList"
+  (click)="redirectToCategories(category)" matTooltip=" {{category.name |  uppercase }}">
+    {{category.name}}
+  </a>
+</nav>
