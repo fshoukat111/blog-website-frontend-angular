@@ -31,12 +31,19 @@
     position: absolute
     bottom: 0px
 
-  @media only screen and (max-width: 600px) and (min-width: 400px)
+  @media screen and (max-width: 992px)
     .card-list
-      display: flex
+      display: block
       flex-wrap: wrap
       margin: 0 0
 
     .post-list-card
-      // max-width: 400px
+      max-width: 350px
+      margin: 0 0
+
+  @media screen and (max-width: 768px)
+    .card-list
+      display: block
+      // flex-wrap: wrap
+      padding: 10px
       margin: 0 0
