@@ -1,5 +1,5 @@
 
-<div *ngIf="commentsList.length; else noComments">
+<div *ngIf="commentsList.length; else noComments" class="comment-list">
   <mat-card class="commets-detail"  *ngFor="let comments of commentsList">
     <!-- <div mat-card-avatar class="example-header-image"></div> -->
     <mat-card-title>{{comments.full_name}}</mat-card-title>

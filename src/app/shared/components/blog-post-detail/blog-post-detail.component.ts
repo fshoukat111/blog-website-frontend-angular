@@ -64,6 +64,8 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
   */
   loadAddCommentsOfPost(comment: BlogComments) {
     this.blogStore.dispatch(LoadAddCommentProcess({ post_slug: this.postSlug, comments: comment }));
+    this.loadGetCommentsOfPost();
+    this.getCommentsListOfPost();
   }
 
   /**

@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialUiModule } from '@app/shared/modules/materials-ui';
+import { FormsModule } from '@angular/forms';
 import {
   BlogCategoriesListComponent,
   LoaderComponent,
   BlogPostListByCategoryComponent,
   BlogPostDetailComponent,
-  BlogPostsCommentsComponent
+  BlogPostsCommentsComponent,
+  BlogPageNotFoundComponent,
+  BlogGetCommentsComponent
 } from '@app/shared/components';
-import { FormsModule } from '@angular/forms';
-import { BlogGetCommentsComponent } from './components/blog-get-comments/blog-get-comments.component';
+
 
 /**
  * SHARED MODULES
@@ -29,13 +31,15 @@ const SHARED_COMPONENTS = [
   BlogPostListByCategoryComponent,
   BlogPostDetailComponent,
   BlogPostsCommentsComponent,
+  BlogGetCommentsComponent,
+  BlogPageNotFoundComponent,
 
 ]
 
 @NgModule({
   imports: [...SHARED_MODULES],
   exports: [...SHARED_MODULES, ...SHARED_COMPONENTS],
-  declarations: [...SHARED_COMPONENTS, BlogGetCommentsComponent,],
+  declarations: [...SHARED_COMPONENTS,],
 
 })
 export class SharedModule { }

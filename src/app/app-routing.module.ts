@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppRoutes } from '@app/shared/constants';
 import {
   BlogPostListByCategoryComponent,
-  BlogPostDetailComponent } from '@app/shared/components';
+  BlogPostDetailComponent,
+  BlogPageNotFoundComponent} from '@app/shared/components';
 
 
 const routes: Routes = [
@@ -14,6 +15,8 @@ const routes: Routes = [
   },
   {path:':category_slug',component:BlogPostListByCategoryComponent},
   {path:'detail/:category_slug/:post_slug',component:BlogPostDetailComponent},
+  {path:'404', component: BlogPageNotFoundComponent },
+  {path:'**', pathMatch:'full', redirectTo: '/404'},
   // {
   //   path: 'blog',
   //   loadChildren: () => import('@app/modules/blogs/blogs.module').then(m => m.BlogsModule)
@@ -21,7 +24,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
