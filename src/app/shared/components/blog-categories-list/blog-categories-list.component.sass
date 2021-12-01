@@ -1,4 +1,10 @@
 :host::ng-deep
+  .mat-tab-header
+    top: 0
+    z-index: 1000
+    position: sticky
+    position: -webkit-sticky
+
   .mat-tab-links
     justify-content: end
     display: flex
@@ -6,3 +12,9 @@
 
   .mat-tab-link, .mat-focus-indicator
     min-width: 100px
+
+  @media screen and (max-width: 768px)
+    .mat-tab-links
+      justify-content: center
+      display: flex
+      text-transform: uppercase

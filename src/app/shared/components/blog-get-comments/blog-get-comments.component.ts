@@ -7,8 +7,13 @@ import { BlogComments } from '@app/shared/models';
   styleUrls: ['./blog-get-comments.component.sass']
 })
 export class BlogGetCommentsComponent implements OnInit {
+  allCommentsList:BlogComments[];
+  @Input() set commentsList(commentList: BlogComments[]){
+    if(commentList){
+      this.allCommentsList = commentList;
+    }
+  }
 
-  @Input() commentsList: BlogComments[] = [];
 
   constructor() { }
 
