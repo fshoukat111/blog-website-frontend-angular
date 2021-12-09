@@ -17,7 +17,7 @@ export const LoadCategoryLists = createAction(
 
 // Load Category List Action Successful
 export const LoadCategoryListsSuccess = createAction(
-  '[LoadCategoryLists] LoadCategoryListsSuccessfully',
+  '[LoadCategoryLists] LoadCategoryListsSuccess',
   props<{ categoryList: Categories[] }>()
 );
 
@@ -28,82 +28,83 @@ export const LoadCategoryListsFail = createAction(
 );
 // End Category Section//
 
-//Start Posts List Secion//
-// Load Post List Action
-export const LoadPostLists = createAction(
-  '[LoadPostLists] LoadPostLists',
-  props<{ category_slug: string, page_num: number }>()
+//Start Article List Secion//
+// Load Article List Action
+export const LoadArticleLists = createAction(
+  '[LoadArticleLists] LoadArticleLists',
+  props<{ category_slug: string }>()
+  // props<{ category_slug: string, page_num: number }>()
 
 );
 
-// Load Post List Action Successful
-export const LoadPostListsSuccess = createAction(
-  '[LoadPostLists] LoadPostListsSuccessfully',
+// Load Article List Action Successful
+export const LoadArticleListsSuccess = createAction(
+  '[LoadArticleListsSuccess] LoadArticleListsSuccess',
   props<{ postList: BlogPost[] }>()
 );
 
-// Load Post List Action Failure
-export const LoadPostListsFail = createAction(
-  '[LoadPostLists] LoadPostListsFail',
+// Load Article List Action Failure
+export const LoadArticleListsFail = createAction(
+  '[LoadArticleListsFail] LoadArticleListsFail',
   props<{ error: any }>()
 );
 
-// Load Post Detail Action
-export const LoadPostDetail = createAction(
-  '[LoadPostDetail] LoadPostDetail',
-  props<{ category_slug: string, post_slug: string }>()
+// Load Article Detail Action
+export const LoadArticleDetail = createAction(
+  '[LoadArticleDetail] LoadArticleDetail',
+  props<{ category_slug: string, article_slug: string }>()
 
 );
 
 // Load Post Detail Action Successful
-export const LoadPostDetailSuccess = createAction(
-  '[LoadPostLists] LoadPostDetailSuccessfully',
-  props<{ postDetail: BlogPost }>()
+export const LoadArticleDetailSuccess = createAction(
+  '[LoadArticleDetailSuccess] LoadArticleDetailSuccess',
+  props<{ articleDetail: BlogPost }>()
 );
 
-// Load Post Detail Action Failure
-export const LoadPostDetailFail = createAction(
-  '[LoadPostDetail] LoadPostDetailFail',
+// Load Article Detail Action Failure
+export const LoadArticleDetailFail = createAction(
+  '[LoadArticleDetailFail] LoadArticleDetailFail',
   props<{ error: any }>()
 );
-//End Posts List Secion//
+//End Article List Secion//
 
 //Start Comments on Posts Section Of Post//
-// Load Add Comnents Action
-export const LoadAddCommentProcess = createAction(
-  '[LoadAddCommentProcess] LoadAddCommentProcess',
-  props<{ post_slug: string, comments: BlogComments }>()
+// Load Post Article Comnents
+export const LoadPostArticleComment = createAction(
+  '[LoadPostArticleComment] LoadPostArticleComment',
+  props<{ article_slug: string, comments: BlogComments }>()
 
 );
 
-// Load Add Comnents Action Successful
-export const LoadAddCommentProcessSuccess = createAction(
-  '[LoadAddCommetOfPost] LoadAddCommetOfPostSuccessfully',
-  props<{ comments: BlogComments }>()
+// Load Post Article Comnents Successful
+export const LoadPostArticleCommentSuccess = createAction(
+  '[LoadAddCommetOfPost] LoadPostArticleCommentSuccess',
+  props<{ comment: BlogComments }>()
 );
 
-// Load Add Comnents  Action Failure
-export const LoadAddCommentProcessFail = createAction(
-  '[LoadAddCommentProcess] LoadAddCommentProcessFail',
+// Load Post Article Comnents  Action Failure
+export const LoadPostArticleCommentFail = createAction(
+  '[LoadPostArticleComment] LoadPostArticleCommentFail',
   props<{ error: any }>()
 );
 
 // Load Get Comnents Action
-export const LoadGetCommentLists = createAction(
-  '[LoadGetCommentList] LoadGetCommentList',
-  props<{ post_slug : string }>()
+export const LoadGetArticleCommentLists = createAction(
+  '[LoadGetArticleCommentLists] LoadGetArticleCommentLists',
+  props<{ article_slug: string }>()
 
 );
 
 // Load Get Comnents Action Successful
-export const LoadGetCommentListsSuccess = createAction(
-  '[LoadGetCommentList] LoadGetCommentListSuccessfully',
+export const LoadGetArticleCommentListsSuccess = createAction(
+  '[LoadGetArticleCommentLists] LoadGetArticleCommentListsSuccess',
   props<{ commentsList: BlogComments[] }>()
 );
 
 // Load Add Comnents  Action Failure
-export const LoadGetCommentListsFail = createAction(
-  '[LoadGetCommentList] LoadGetCommentListFail',
+export const LoadGetArticleCommentListsFail = createAction(
+  '[LoadGetArticleCommentLists] LoadGetArticleCommentListsFail',
   props<{ error: any }>()
 );
 //End Comments Section//

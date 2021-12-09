@@ -21,43 +21,47 @@ export class BlogService {
   }
 
   /**
-   * Get Posts List based on categories
+   * Get Articles List based on categories
    * @param category_slug
    * @param page_num
    * @returns Post List
   */
-  getPostsList(category_slug: string, page_num?: number): Observable<BlogPost[]> {
-    return this.requestService.get(`${ApiUrl.backendUrl}/${ApiUrl.post}/${category_slug}?page=${page_num}`);
+  getArticlesList(category_slug: string): Observable<BlogPost[]> {
+    return this.requestService.get(`${ApiUrl.backendUrl}/${ApiUrl.article}/${category_slug}`);
   }
 
+  // getPostsList(category_slug: string, page_num?: number): Observable<BlogPost[]> {
+  //   return this.requestService.get(`${ApiUrl.backendUrl}/${ApiUrl.post}/${category_slug}?page=${page_num}`);
+  // }
+
   /**
-   * Get Post Detail
+   * Get Article Detail
    * @param category_slug
-   * @param post_slug
+   * @param article_slug
    * @returns Post Detail
   */
-  getPostDetail(category_slug: string, post_slug?: string): Observable<BlogPost> {
-    return this.requestService.get(`${ApiUrl.backendUrl}/${ApiUrl.post}/${category_slug}/${post_slug}`);
+  getArticleDetail(category_slug: string, article_slug: string): Observable<BlogPost> {
+    return this.requestService.get(`${ApiUrl.backendUrl}/${ApiUrl.article}/${category_slug}/${article_slug}`);
   }
 
   /**
    * Post/Add Comments of Posts
-   * @param post_slug
+   * @param article_slug
    * @param comment
    * @returns addCommentofPosts
   */
-  addCommentofPosts(post_slug: string, comments: BlogComments): Observable<BlogComments> {
+  postArticleComments(article_slug: string, comments: BlogComments): Observable<BlogComments> {
     return this.requestService.post(
-      `${ApiUrl.backendUrl}/${ApiUrl.post}/${post_slug}/${ApiUrl.comment}/${ApiUrl.create}`, comments);
+      `${ApiUrl.backendUrl}/${ApiUrl.article}/${article_slug}/${ApiUrl.comment}/${ApiUrl.list}`, comments);
   }
 
   /**
    * Get Comments of Posts
-   * @param post_slug
+   * @param article_slug
    * @returns getCommentofPosts
   */
-  getCommentofPosts(post_slug: string): Observable<BlogComments[]> {
+  getArticleComments(article_slug: string): Observable<BlogComments[]> {
     return this.requestService.get(
-      `${ApiUrl.backendUrl}/${ApiUrl.post}/${post_slug}/${ApiUrl.comment}/${ApiUrl.list}`);
+      `${ApiUrl.backendUrl}/${ApiUrl.article}/${article_slug}/${ApiUrl.comment}/${ApiUrl.list}`);
   }
 }

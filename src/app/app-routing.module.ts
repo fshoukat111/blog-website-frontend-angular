@@ -1,26 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutes } from '@app/shared/constants';
-import {
-  BlogPostListByCategoryComponent,
-  BlogPostDetailComponent,
-  BlogPageNotFoundComponent} from '@app/shared/components';
+// import {
+//   BlogPageNotFoundComponent} from '@app/shared/components';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo:'/home',
+    redirectTo:'home',
     pathMatch: 'full'
   },
-  {path:':category_slug',component:BlogPostListByCategoryComponent},
-  {path:'detail/:category_slug/:post_slug',component:BlogPostDetailComponent},
-  {path:'404', component: BlogPageNotFoundComponent },
-  {path:'**', pathMatch:'full', redirectTo: '/404'},
-  // {
-  //   path: 'blog',
-  //   loadChildren: () => import('@app/modules/blogs/blogs.module').then(m => m.BlogsModule)
-  // }
+  // {path:':category_slug',component:BlogArticleListByCategoryComponent},
+  // {path:'detail/:category_slug/:post_slug',component:BlogArticleDetailComponent},
+  // {path:'404', component: BlogPageNotFoundComponent },
+  // {path:'**', pathMatch:'full', redirectTo: '/404'},
+  {
+    path: '',
+    loadChildren: () => import('@app/modules/blogs/blogs.module').then(m => m.BlogsModule)
+  }
 ];
 
 @NgModule({

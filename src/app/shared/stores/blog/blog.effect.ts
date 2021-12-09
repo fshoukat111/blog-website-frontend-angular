@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { map, catchError, switchMap } from 'rxjs/operators';
+import { map, catchError, switchMap, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import * as blogAction from '@app/shared/stores/blog/blog.actions';
 import { LoaderService } from '@app/core/services/loader.service';
@@ -45,19 +45,21 @@ export class BlogEffects {
   );
 
   /**
-   * Post Lists
-   * Triggers when LoadPostLists action is dispatched
+   * Article Lists
+   * Triggers when LoadArticleLists action is dispatched
    * On success, dispatches LoadPostListsSuccess action
    * @todo Display loaders
   */
-  getPostList$ = createEffect(() =>
-    this.actions$.pipe(ofType(blogAction.LoadPostLists),
+  getArticlesList$ = createEffect(() =>
+    this.actions$.pipe(ofType(blogAction.LoadArticleLists),
       switchMap((action) => {
         this.loaderService.showLoader();
-        return this.blogService.getPostsList(action.category_slug, action.page_num).pipe(map((res: BlogPost[]) => {
-          this.loaderService.hideLoader();
-          return blogAction.LoadPostListsSuccess({ postList: res });
-        }),
+        return this.blogService.getArticlesList(action.category_slug).pipe(
+          map((res: BlogPost[]) => {
+            // return this.blogService.getPostsList(action.category_slug, action.page_num).pipe(map((res: BlogPost[]) => {
+            this.loaderService.hideLoader();
+            return blogAction.LoadArticleListsSuccess({ postList: res });
+          }),
           catchError((error) => {
             this.loaderService.hideLoader();
             // this.messageService.add({
@@ -65,7 +67,7 @@ export class BlogEffects {
             //   summary: 'Login Error',
             //   detail: 'Invalid email or password',
             // });
-            return of(blogAction.LoadPostListsFail({ error }));
+            return of(blogAction.LoadArticleListsFail({ error }));
           })
         );
       })
@@ -73,18 +75,19 @@ export class BlogEffects {
   );
 
   /**
-   * Post Detail
+   * Article Detail
    * Triggers when LoadPostDetail action is dispatched
    * On success, dispatches LoadPostDetailSuccess action
    * @todo Display loaders
   */
-  getPostDetail$ = createEffect(() =>
-    this.actions$.pipe(ofType(blogAction.LoadPostDetail),
+  getArticleDetail$ = createEffect(() =>
+    this.actions$.pipe(ofType(blogAction.LoadArticleDetail),
       switchMap((action) => {
         this.loaderService.showLoader();
-        return this.blogService.getPostDetail(action.category_slug,action.post_slug).pipe(map((postDetail: BlogPost) => {
+        return this.blogService.getArticleDetail(action.category_slug, action.article_slug).pipe(map((articleDetail: BlogPost) => {
+
           this.loaderService.hideLoader();
-          return blogAction.LoadPostDetailSuccess({ postDetail });
+          return blogAction.LoadArticleDetailSuccess({ articleDetail });
         }),
           catchError((error) => {
             this.loaderService.hideLoader();
@@ -93,7 +96,7 @@ export class BlogEffects {
             //   summary: 'Login Error',
             //   detail: 'Invalid email or password',
             // });
-            return of(blogAction.LoadPostDetailFail({ error }));
+            return of(blogAction.LoadArticleDetailFail({ error }));
           })
         );
       })
@@ -102,17 +105,17 @@ export class BlogEffects {
 
   /**
    *Get Add Comments of post
-   * Triggers when LoadAddCommentProcess action is dispatched
-   * On success, dispatches LoadAddCommentProcessSuccess action
+   * Triggers when LoadPostArticleComment action is dispatched
+   * On success, dispatches LoadPostArticleCommentSuccess action
    * @todo Display loaders
   */
-  getAddCommentProccess$ = createEffect(() =>
-    this.actions$.pipe(ofType(blogAction.LoadAddCommentProcess),
+  getpostArticleComments$ = createEffect(() =>
+    this.actions$.pipe(ofType(blogAction.LoadPostArticleComment),
       switchMap((action) => {
         this.loaderService.showLoader();
-        return this.blogService.addCommentofPosts(action.post_slug,action.comments).pipe(map((comments: BlogComments) => {
+        return this.blogService.postArticleComments(action.article_slug, action.comments).pipe(map((comment: BlogComments) => {
           this.loaderService.hideLoader();
-          return blogAction.LoadAddCommentProcessSuccess({ comments });
+          return blogAction.LoadPostArticleCommentSuccess({ comment });
         }),
           catchError((error) => {
             this.loaderService.hideLoader();
@@ -121,7 +124,7 @@ export class BlogEffects {
             //   summary: 'Login Error',
             //   detail: 'Invalid email or password',
             // });
-            return of(blogAction.LoadAddCommentProcessFail({ error }));
+            return of(blogAction.LoadPostArticleCommentFail({ error }));
           })
         );
       })
@@ -130,17 +133,17 @@ export class BlogEffects {
 
   /**
   * Get Comment Lists
-  * Triggers when LoadGetCommentList action is dispatched
-  * On success, dispatches LoadGetCommentListSuccess action
+  * Triggers when LoadGetArticleCommentLists action is dispatched
+  * On success, dispatches LoadGetArticleCommentListsSuccess action
   * @todo Display loaders
   */
-  getCommentList$ = createEffect(() =>
-    this.actions$.pipe(ofType(blogAction.LoadGetCommentLists),
+  getArticleCommentList$ = createEffect(() =>
+    this.actions$.pipe(ofType(blogAction.LoadGetArticleCommentLists),
       switchMap((action) => {
         this.loaderService.showLoader();
-        return this.blogService.getCommentofPosts(action.post_slug).pipe(map((res: BlogComments[]) => {
+        return this.blogService.getArticleComments(action.article_slug).pipe(map((res: BlogComments[]) => {
           this.loaderService.hideLoader();
-          return blogAction.LoadGetCommentListsSuccess({ commentsList: res });
+          return blogAction.LoadGetArticleCommentListsSuccess({ commentsList: res });
         }),
           catchError((error) => {
             this.loaderService.hideLoader();
@@ -149,7 +152,7 @@ export class BlogEffects {
             //   summary: 'Login Error',
             //   detail: 'Invalid email or password',
             // });
-            return of(blogAction.LoadGetCommentListsFail({ error }));
+            return of(blogAction.LoadGetArticleCommentListsFail({ error }));
           })
         );
       })

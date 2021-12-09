@@ -1,11 +1,11 @@
 <div class="container">
   <div class="row">
     <div class="col-12 content-header">
-      <h2 class="content-title">{{postDetail?.title}}</h2>
+      <h2 class="content-title">{{articleDetail?.title}}</h2>
     </div>
     <div class="col-9 main">
       <mat-card>
-        <p class="all-content">{{postDetail?.body_content}}</p>
+        <p class="all-content">{{articleDetail?.body_content}}</p>
 
         <div class="row">
           <div class="col-9">
@@ -13,9 +13,10 @@
           </div>
         </div>
 
-        <div class="row" *ngIf="postDetail.body_content">
+        <div class="row" *ngIf="articleDetail?.body_content">
           <div class="col-9 nested-main">
-            <app-blog-posts-comments (dispatchAddCommentPost)="loadAddCommentsOfPost($event)"></app-blog-posts-comments>
+            <app-blog-article-comments (dispatchArticleComment)="dispatchArticleComment($event)">
+            </app-blog-article-comments>
           </div>
         </div>
       </mat-card>

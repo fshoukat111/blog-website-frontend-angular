@@ -1,6 +1,7 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import * as blogAction from '@app/shared/stores/blog/blog.actions';
 import { IBlogState, initialBlogState } from '@app/shared/stores/blog/blog.state';
+import { HelperService } from '@app/core/services/helper/helper.service';
 
 const createBlogReducer = createReducer(initialBlogState,
 
@@ -26,62 +27,62 @@ const createBlogReducer = createReducer(initialBlogState,
   })),
 
   //Get Post Lists reducers
-  on(blogAction.LoadPostLists, (state) => ({
+  on(blogAction.LoadArticleLists, (state) => ({
     ...state,
   })),
 
-  on(blogAction.LoadPostListsSuccess, (state, { postList }) => ({
+  on(blogAction.LoadArticleListsSuccess, (state, { postList }) => ({
     ...state,
     postList,
   })),
 
-  on(blogAction.LoadPostListsFail, (state, { error }) => ({
+  on(blogAction.LoadArticleListsFail, (state, { error }) => ({
     ...state,
     error,
   })),
 
   //Get Post Detail reducers
-  on(blogAction.LoadPostDetail, (state) => ({
+  on(blogAction.LoadArticleDetail, (state) => ({
     ...state,
   })),
 
-  on(blogAction.LoadPostDetailSuccess, (state, { postDetail }) => ({
+  on(blogAction.LoadArticleDetailSuccess, (state, { articleDetail }) => ({
     ...state,
-    postDetail,
+    articleDetail,
   })),
 
-  on(blogAction.LoadPostDetailFail, (state, { error }) => ({
+  on(blogAction.LoadArticleDetailFail, (state, { error }) => ({
     ...state,
     error,
   })),
 
   //Add Comments Process reducers
-  on(blogAction.LoadAddCommentProcess, (state, { comments }) => ({
+  on(blogAction.LoadPostArticleComment, (state, { comments }) => ({
     ...state,
     comments
   })),
 
-  on(blogAction.LoadAddCommentProcessSuccess, (state, { comments }) => ({
+  on(blogAction.LoadPostArticleCommentSuccess, (state, { comment }) => ({
     ...state,
-    comments,
+    commentsList: HelperService.updateStore([...state.commentsList], comment)
   })),
 
-  on(blogAction.LoadAddCommentProcessFail, (state, { error }) => ({
+  on(blogAction.LoadPostArticleCommentFail, (state, { error }) => ({
     ...state,
     error,
   })),
 
   //Get Comments Lists reducers
-  on(blogAction.LoadGetCommentLists, (state) => ({
+  on(blogAction.LoadGetArticleCommentLists, (state) => ({
     ...state,
   })),
 
-  on(blogAction.LoadGetCommentListsSuccess, (state, { commentsList }) => ({
+  on(blogAction.LoadGetArticleCommentListsSuccess, (state, { commentsList }) => ({
     ...state,
     commentsList,
   })),
 
-  on(blogAction.LoadGetCommentListsFail, (state, { error }) => ({
+  on(blogAction.LoadGetArticleCommentListsFail, (state, { error }) => ({
     ...state,
     error,
   })),

@@ -17,6 +17,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
 
   constructor(
     public loaderService: LoaderService,
+    private cdr: ChangeDetectorRef,
     private blogStore: Store<IBlogState>,
   ) { }
 
@@ -24,6 +25,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
     this.isLoading = false;
     this.loaderSubscription$ = this.blogStore.pipe(select(getLoaderStateSelector)).subscribe((isLoading: boolean) => {
       this.isLoading = isLoading ? true : false;
+      this.cdr.detectChanges();
     });
   }
 

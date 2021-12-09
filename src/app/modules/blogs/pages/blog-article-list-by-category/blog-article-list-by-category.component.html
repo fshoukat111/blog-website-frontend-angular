@@ -1,5 +1,5 @@
-<div class="card-list" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)" >
-  <mat-card class="post-list-card" *ngFor="let posts of postListByCategory" cdkDrag>
+<div class="card-list">
+  <mat-card class="post-list-card" *ngFor="let posts of postListByCategory">
     <mat-card-header>
       <!-- <div mat-card-avatar class="example-header-image"></div> -->
       <mat-card-title matTooltip="{{posts.title}}">{{ (posts.title.length > 30) ? (posts.title|
@@ -16,6 +16,7 @@
     </mat-card-actions>
   </mat-card>
 </div>
-<mat-paginator aria-label="Select page" *ngIf="postListByCategory.length >= 4"
+<!-- <mat-paginator aria-label="Select page" *ngIf="postListByCategory.length >= 4"
   (page)="pageChange($event)" showFirstLastButtons>
-</mat-paginator>
+</mat-paginator> -->
+

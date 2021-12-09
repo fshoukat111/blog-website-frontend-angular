@@ -7,18 +7,21 @@ import { BlogComments } from '@app/shared/models';
   styleUrls: ['./blog-get-comments.component.sass']
 })
 export class BlogGetCommentsComponent implements OnInit {
-  allCommentsList:BlogComments[];
+
   @Input() set commentsList(commentList: BlogComments[]){
-    if(commentList){
+    if(commentList && commentList.length){
       this.allCommentsList = commentList;
     }
   }
+
+  allCommentsList:BlogComments[] = [];
+
 
 
   constructor() { }
 
   ngOnInit(): void {
-    this.commentsList = []
+    // this.commentsList = [];
+    this.allCommentsList = [];
   }
-
 }

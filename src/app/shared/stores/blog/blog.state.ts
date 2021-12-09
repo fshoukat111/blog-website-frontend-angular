@@ -6,8 +6,8 @@ export interface IBlogState {
   postList: BlogPost[] ,
   categoryList: Categories[] ,
   postListByCategory: BlogPost[] ,
+  articleDetail:BlogPost
   commentsList:BlogComments[] ,
-  postDetail:BlogPost
 }
 
 /** Initial state for Tab store. */
@@ -15,7 +15,7 @@ export const initialBlogState: IBlogState = {
   categoryList:[],
   postList: [],
   postListByCategory: [],
-  isLoading: true,
+  articleDetail: {},
   commentsList: [],
-  postDetail:new BlogPost
+  isLoading: true,
 };

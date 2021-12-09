@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -6,27 +6,25 @@ import { AppRoutes } from '@app/shared/constants';
 import { BlogPost, Categories } from '@app/shared/models';
 import { LoadCategoryLists } from '@app/shared/stores/blog/blog.actions';
 import { getCategoryListSelector } from '@app/shared/stores/blog/blog.selectors';
+import { IBlogState } from '@app/shared/stores/blog/blog.state';
 
 @Component({
-  selector: 'app-blog-categories-list',
-  templateUrl: './blog-categories-list.component.html',
-  styleUrls: ['./blog-categories-list.component.sass']
+  selector: 'app-article-blog-categories-list',
+  templateUrl: './blog-article-categories-list.component.html',
+  styleUrls: ['./blog-article-categories-list.component.sass']
 })
-export class BlogCategoriesListComponent implements OnInit, OnDestroy {
+export class BlogArticleCategoriesListComponent implements OnInit {
 
   categoriesList: Categories[] = [];
-  postListByCategory: BlogPost[] = [];
   subscriptions$: Subscription[] = [];
-  selectedCategory: string;
 
   constructor(
     private router: Router,
-    private blogStore: Store,
+    private blogStore: Store<IBlogState>,
   ) { }
 
   ngOnInit(): void {
     this.dispatchCategoriesList();
-    this.getCategoriesList();
   }
 
   /**
@@ -34,24 +32,28 @@ export class BlogCategoriesListComponent implements OnInit, OnDestroy {
    */
   dispatchCategoriesList() {
     this.blogStore.dispatch(LoadCategoryLists());
+    this.getCategoriesList();
+
   }
 
   /**
    * get Category Lists
    */
   getCategoriesList() {
-    this.subscriptions$.push(this.blogStore.pipe(select(getCategoryListSelector)).subscribe((categoriesList: Categories[]) => {
+    this.blogStore.pipe(select(getCategoryListSelector)).subscribe((categoriesList: Categories[]) => {
       if (categoriesList && categoriesList.length && categoriesList) {
         this.categoriesList = categoriesList.sort((a, b) => a.id - b.id)
+        console.log(categoriesList, 'category')
       }
-    }));
+    });
   }
 
   /**
-   * redirect Category List Post
-   * @param category
-   */
-  redirectToCategories(category: Categories) {
+  * redirect Category List Post
+  * @param category
+  */
+  redirectToCategories(category:Categories) {
+    console.log('event', category)
     this.router.navigate(['/', category.slug])
   }
 
@@ -65,4 +67,6 @@ export class BlogCategoriesListComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+
 }
