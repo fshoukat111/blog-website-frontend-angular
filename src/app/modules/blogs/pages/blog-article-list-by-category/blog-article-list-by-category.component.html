@@ -1,7 +1,6 @@
 <div class="card-list">
-  <mat-card class="post-list-card" *ngFor="let posts of postListByCategory">
+  <mat-card class="post-list-card" *ngFor="let posts of postListByCategory | paginate: config">
     <mat-card-header>
-      <!-- <div mat-card-avatar class="example-header-image"></div> -->
       <mat-card-title matTooltip="{{posts.title}}">{{ (posts.title.length > 30) ? (posts.title|
         slice:0:50)+'..':(posts.title) }}</mat-card-title>
       <mat-card-subtitle *ngFor="let category of posts.category" matTooltip="{{category.name}}">{{category.name}}
@@ -16,7 +15,4 @@
     </mat-card-actions>
   </mat-card>
 </div>
-<!-- <mat-paginator aria-label="Select page" *ngIf="postListByCategory.length >= 4"
-  (page)="pageChange($event)" showFirstLastButtons>
-</mat-paginator> -->
-
+<pagination-controls class="pagination" (pageChange)="pageChange($event)"></pagination-controls>

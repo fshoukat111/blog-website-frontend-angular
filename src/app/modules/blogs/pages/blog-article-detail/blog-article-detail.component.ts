@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
 })
 export class BlogArticleDetailComponent implements OnInit, OnDestroy {
 
-  articleDetail: BlogPost;
+  articleDetail: any;
   articleSlug: string;
   categorySlug: string;
   commentsList: BlogComments[] = [];
@@ -40,12 +40,7 @@ export class BlogArticleDetailComponent implements OnInit, OnDestroy {
 
       }));
 
-      this.getCommentsListArticle();
-
-
-
-
-
+    this.getCommentsListArticle();
   }
 
   /**
@@ -58,9 +53,8 @@ export class BlogArticleDetailComponent implements OnInit, OnDestroy {
         article_slug: this.articleSlug,
       }
     ));
-    this.articleDetail = {}
+    this.articleDetail = {};
     this.getPostDetail();
-
   }
 
   /**
@@ -70,10 +64,7 @@ export class BlogArticleDetailComponent implements OnInit, OnDestroy {
     this.subscriptions$.push(this.blogStore.pipe(select(getArticleDetailSelector)).subscribe((articleDetail: BlogPost) => {
       if (articleDetail) {
         this.articleDetail = articleDetail;
-        console.log("articleDetail", this.articleDetail)
       }
-
-
     }
     ));
   }
@@ -82,12 +73,8 @@ export class BlogArticleDetailComponent implements OnInit, OnDestroy {
    * dispatch Article Comment of Article
   */
   dispatchArticleComment(comment: BlogComments) {
-      this.blogStore.dispatch(LoadPostArticleComment({ article_slug: this.articleSlug, comments: comment }));
-      // this.loadGetArticleComment();
-      // this.getCommentsListArticle();
-
-
-    }
+    this.blogStore.dispatch(LoadPostArticleComment({ article_slug: this.articleSlug, comments: comment }));
+  }
 
   /**
    * Get Comments of Article
@@ -104,11 +91,8 @@ export class BlogArticleDetailComponent implements OnInit, OnDestroy {
       if (commentsList && commentsList.length) {
         this.commentsList = [];
         this.commentsList = commentsList;
-        console.log('commentsList', commentsList)
       }
     }));
-    // this.commentsList = [];
-
   }
 
   /**
@@ -118,7 +102,6 @@ export class BlogArticleDetailComponent implements OnInit, OnDestroy {
     this.subscriptions$.forEach(subscribe => {
       if (subscribe) {
         subscribe.unsubscribe();
-        console.log('subscribe', subscribe)
       }
     });
   }

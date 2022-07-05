@@ -11,7 +11,7 @@ import {
   BlogArticleCommentsComponent,
   BlogGetCommentsComponent } from '@app/modules/blogs/components';
 import { FormsModule } from '@angular/forms';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -26,7 +26,11 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     BlogsRoutingModule,
     MaterialUiModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
+  ],
+  exports: [
+    NgxPaginationModule
   ]
 })
 export class BlogsModule { }

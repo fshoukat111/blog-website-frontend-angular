@@ -26,13 +26,9 @@ export class BlogService {
    * @param page_num
    * @returns Post List
   */
-  getArticlesList(category_slug: string): Observable<BlogPost[]> {
-    return this.requestService.get(`${ApiUrl.backendUrl}/${ApiUrl.article}/${category_slug}`);
+  getPostsList(category_slug: string, pageNumber?: number): Observable<BlogPost[]> {
+    return this.requestService.get(`${ApiUrl.backendUrl}/${ApiUrl.article}/${category_slug}?page=${pageNumber}`);
   }
-
-  // getPostsList(category_slug: string, page_num?: number): Observable<BlogPost[]> {
-  //   return this.requestService.get(`${ApiUrl.backendUrl}/${ApiUrl.post}/${category_slug}?page=${page_num}`);
-  // }
 
   /**
    * Get Article Detail
@@ -40,7 +36,7 @@ export class BlogService {
    * @param article_slug
    * @returns Post Detail
   */
-  getArticleDetail(category_slug: string, article_slug: string): Observable<BlogPost> {
+  getArticleDetail(category_slug: string, article_slug: string): Observable<any> {
     return this.requestService.get(`${ApiUrl.backendUrl}/${ApiUrl.article}/${category_slug}/${article_slug}`);
   }
 

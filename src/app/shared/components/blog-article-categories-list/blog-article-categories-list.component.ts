@@ -42,8 +42,7 @@ export class BlogArticleCategoriesListComponent implements OnInit {
   getCategoriesList() {
     this.blogStore.pipe(select(getCategoryListSelector)).subscribe((categoriesList: Categories[]) => {
       if (categoriesList && categoriesList.length && categoriesList) {
-        this.categoriesList = categoriesList.sort((a, b) => a.id - b.id)
-        console.log(categoriesList, 'category')
+        this.categoriesList = categoriesList.sort((a, b) => a.id - b.id);
       }
     });
   }
@@ -52,9 +51,8 @@ export class BlogArticleCategoriesListComponent implements OnInit {
   * redirect Category List Post
   * @param category
   */
-  redirectToCategories(category:Categories) {
-    console.log('event', category)
-    this.router.navigate(['/', category.slug])
+  redirectToCategories(category: Categories) {
+    this.router.navigate(['/', category.slug]);
   }
 
   /**
@@ -67,6 +65,4 @@ export class BlogArticleCategoriesListComponent implements OnInit {
       }
     });
   }
-
-
 }
