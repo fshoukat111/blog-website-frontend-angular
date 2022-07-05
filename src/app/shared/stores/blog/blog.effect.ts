@@ -54,12 +54,12 @@ export class BlogEffects {
     this.actions$.pipe(ofType(blogAction.LoadArticleLists),
       switchMap((action) => {
         this.loaderService.showLoader();
-        return this.blogService.getArticlesList(action.category_slug).pipe(
-          map((res: BlogPost[]) => {
-            // return this.blogService.getPostsList(action.category_slug, action.page_num).pipe(map((res: BlogPost[]) => {
-            this.loaderService.hideLoader();
-            return blogAction.LoadArticleListsSuccess({ postList: res });
-          }),
+        // return this.blogService.getArticlesList(action.category_slug).pipe(
+        //   map((res: BlogPost[]) => {
+        return this.blogService.getPostsList(action.category_slug, action.pageNumber).pipe(map((res: BlogPost[]) => {
+          this.loaderService.hideLoader();
+          return blogAction.LoadArticleListsSuccess({ postList: res });
+        }),
           catchError((error) => {
             this.loaderService.hideLoader();
             // this.messageService.add({

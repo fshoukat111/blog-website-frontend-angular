@@ -1,6 +1,13 @@
 import { Categories } from "@app/shared/models";
 
 export class BlogPost {
+  count: number;
+  next: string;
+  previous: string;
+  results: Posts[];
+}
+
+export class Posts{
   id?: number;
   title?: string;
   slug?: string;

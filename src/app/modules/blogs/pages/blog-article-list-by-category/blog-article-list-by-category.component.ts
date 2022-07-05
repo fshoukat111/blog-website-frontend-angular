@@ -2,14 +2,9 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { BlogPost, Categories } from '@app/shared/models';
 import { LoadArticleLists } from '@app/shared/stores/blog/blog.actions';
 import { getArticleListSelector } from '@app/shared/stores/blog/blog.selectors';
 import { IBlogState } from '@app/shared/stores/blog/blog.state';
-import { PageEvent } from '@angular/material/paginator';
-import { map } from 'rxjs/operators';
-
 @Component({
   selector: 'app-blog-article-list-by-category',
   templateUrl: './blog-article-list-by-category.component.html',
@@ -20,9 +15,10 @@ export class BlogArticleListByCategoryComponent implements OnInit {
   @Input() hasPagination = true
 
   pageIndex: number = 1;
-  postListByCategory: BlogPost[] = [];
+  postListByCategory: any[] = [];
   selectedCategory: string;
   subscriptions$: Subscription[] = [];
+  config: { itemsPerPage: any; currentPage: number; totalItems: any; };
 
 
   constructor(
@@ -34,7 +30,7 @@ export class BlogArticleListByCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.subscriptions$.push(this.route.paramMap.subscribe(params => {
       this.selectedCategory = params.get('category_slug');
-      this.dispatchPostByCategoriesList(this.selectedCategory);
+      this.dispatchPostByCategoriesList(this.selectedCategory, this.pageIndex);
     }));
     this.getPostListsByCategory();
   }
@@ -42,9 +38,8 @@ export class BlogArticleListByCategoryComponent implements OnInit {
   /**
   * dispach Posts Lists By Categories
   */
-  dispatchPostByCategoriesList(category_slug: string) {
-    this.blogStore.dispatch(LoadArticleLists({ category_slug: category_slug }));
-    // this.blogStore.dispatch(LoadPostLists({ category_slug: category_slug, page_num: page_num }));
+  dispatchPostByCategoriesList(category_slug: string, pageNumber: number) {
+    this.blogStore.dispatch(LoadArticleLists({ category_slug: category_slug, pageNumber: this.pageIndex }));
     this.postListByCategory = [];
 
   }
@@ -53,18 +48,34 @@ export class BlogArticleListByCategoryComponent implements OnInit {
   * Get Posts List  By Categories
   */
   getPostListsByCategory() {
-    this.subscriptions$.push(this.blogStore.pipe(select(getArticleListSelector)).subscribe((postListByCategory: BlogPost[]) => {
-      if (postListByCategory && postListByCategory.length) {
+    this.subscriptions$.push(this.blogStore.pipe(select(getArticleListSelector)).subscribe((postListByCategory: any) => {
+      if (postListByCategory.results && postListByCategory.results.length) {
 
-        this.postListByCategory = postListByCategory;
-        console.log('this.postListByCategory', this.postListByCategory)
+        this.postListByCategory = postListByCategory.results;
+      }
+      this.config = {
+        itemsPerPage: 3,
+        currentPage: this.pageIndex,
+        totalItems: postListByCategory.count,
       }
     }));
     this.postListByCategory = [];
   }
-
-  redictToDetail(postDetail: BlogPost) {
+  /**
+   * Redirect To Post Detail Page
+   */
+  redictToDetail(postDetail: any) {
     this.router.navigate(['/', this.selectedCategory, postDetail.slug])
+  }
+
+  /**
+   * pagination function
+   * @param event 
+   */
+  pageChange(event) {
+    this.config.currentPage = event
+    this.pageIndex = this.config.currentPage
+    this.dispatchPostByCategoriesList(this.selectedCategory, this.pageIndex);
   }
 
   /**

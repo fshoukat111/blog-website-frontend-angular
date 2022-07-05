@@ -32,7 +32,7 @@ export const LoadCategoryListsFail = createAction(
 // Load Article List Action
 export const LoadArticleLists = createAction(
   '[LoadArticleLists] LoadArticleLists',
-  props<{ category_slug: string }>()
+  props<{ category_slug: string, pageNumber: number }>()
   // props<{ category_slug: string, page_num: number }>()
 
 );
@@ -59,7 +59,7 @@ export const LoadArticleDetail = createAction(
 // Load Post Detail Action Successful
 export const LoadArticleDetailSuccess = createAction(
   '[LoadArticleDetailSuccess] LoadArticleDetailSuccess',
-  props<{ articleDetail: BlogPost }>()
+  props<{ articleDetail: any }>()
 );
 
 // Load Article Detail Action Failure

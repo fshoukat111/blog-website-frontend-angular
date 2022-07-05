@@ -23,7 +23,6 @@ export class HelperService {
         }
       } else { // If newItem is object
         const index = state.findIndex(a => (a.id && a.id === newItem.id) || (a._id && a._id === newItem._id));
-        // console.log('indexhelper',index)
         if (index > -1) {
           if (isDelete) {
             state.splice(index, 1);
@@ -32,8 +31,6 @@ export class HelperService {
           }
         } else {
           state.push(newItem);
-          console.log('state', state)
-
         }
       }
     }
